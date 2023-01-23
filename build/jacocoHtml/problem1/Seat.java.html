@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Seat.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment9</a> &gt; <a href="index.source.html" class="el_package">problem1</a> &gt; <span class="el_source">Seat.java</span></div><h1>Seat.java</h1><pre class="source lang-java linenums">package problem1;
+
+/**
+ * Class of Seat tracking name of seat, person who reserved, and wheel-chair accessibility
+ */
+public class Seat {
+
+  private String name;
+  private Person reservedFor;
+  private Boolean wheelchairOrNot;
+
+  /**
+   * Constructor of Seat
+   * @param name - name of the seat as String
+   * @param wheelchairOrNot - wheel-chair accessibility as Boolean
+   */
+<span class="fc" id="L17">  public Seat(String name, Boolean wheelchairOrNot) {</span>
+<span class="fc" id="L18">    this.name = name;</span>
+<span class="fc" id="L19">    this.wheelchairOrNot = wheelchairOrNot;</span>
+<span class="fc" id="L20">    this.reservedFor = null;</span>
+<span class="fc" id="L21">  }</span>
+
+  /**
+   * Getter of Seat name
+   * @return name of Seat as String
+   */
+  public String getName() {
+<span class="fc" id="L28">    return name;</span>
+  }
+
+  /**
+   * Getter of wheel-chair accessibility
+   * @return getWheelchairOrNot as Boolean
+   */
+  public Boolean getWheelchairOrNot() {
+<span class="fc" id="L36">    return wheelchairOrNot;</span>
+  }
+
+  /**
+   * Setter of person who reserved seat
+   * @param reservedFor as Person
+   */
+  public void setReservedFor(Person reservedFor) {
+<span class="fc" id="L44">    this.reservedFor = reservedFor;</span>
+<span class="fc" id="L45">  }</span>
+
+  /**
+   * Getter of person who reserved seat
+   * @return reservedFor as Person
+   */
+  public Person getReservedFor() {
+<span class="fc" id="L52">    return reservedFor;</span>
+  }
+
+  /**
+   * Method to create seat (Helper function)
+   * @param name - name of the seat as String
+   * @param wheelchairOrNot - wheel-chair accessibility as Boolean
+   * @return seat as Seat
+   */
+  public static Seat createSeat(String name, Boolean wheelchairOrNot){
+<span class="fc" id="L62">    Seat seat = new Seat(name, wheelchairOrNot);</span>
+<span class="fc" id="L63">    return seat;</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="fc bfc" id="L68" title="All 2 branches covered.">    if ((this.reservedFor == null) &amp;&amp; (</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        !this.wheelchairOrNot)) {</span>
+<span class="fc" id="L70">      return &quot; _ &quot;;</span>
+<span class="pc bpc" id="L71" title="1 of 4 branches missed.">    } else if ((this.reservedFor == null) &amp;&amp; (</span>
+        this.wheelchairOrNot)){
+<span class="fc" id="L73">      return &quot; = &quot;;</span>
+    } else {
+<span class="fc" id="L75">      return &quot; X &quot;;</span>
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

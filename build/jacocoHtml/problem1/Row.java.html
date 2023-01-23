@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Row.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment9</a> &gt; <a href="index.source.html" class="el_package">problem1</a> &gt; <span class="el_source">Row.java</span></div><h1>Row.java</h1><pre class="source lang-java linenums">package problem1;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+/**
+ * Class of Row tracking the row number and wheel-chair accessibility
+ */
+public class Row extends ArrayList&lt;Seat&gt; {
+
+  private Integer rowNumber;
+  private Boolean wheelchairOrNot;
+
+  /**
+   * Constructor of Row
+   * @param rowNumber - row number as Integer
+   * @param wheelchairOrNot - Whether the row is for wheel-chair or not as Boolean
+   */
+<span class="fc" id="L19">  public Row(Integer rowNumber, Boolean wheelchairOrNot) {</span>
+<span class="fc" id="L20">    this.rowNumber = rowNumber;</span>
+<span class="fc" id="L21">    this.wheelchairOrNot = wheelchairOrNot;</span>
+<span class="fc" id="L22">  }</span>
+
+  /**
+   * Method to createRow (Helper Function)
+   * @param rowNumber - row number as Integer
+   * @param wheelchairOrNot - Whether the row is for wheel-chair or not as Boolean
+   * @return row as Row
+   */
+  public static Row createRow(Integer rowNumber, Boolean wheelchairOrNot){
+<span class="fc" id="L31">    Row row = new Row(rowNumber, wheelchairOrNot);</span>
+<span class="fc" id="L32">    return row;</span>
+  }
+
+  /**
+   * Getter of row number
+   * @return rowNumber as Integer
+   */
+  public Integer getRowNumber() {
+<span class="fc" id="L40">    return rowNumber;</span>
+  }
+
+  /**
+   * Getter of wheelchairOrNot
+   * @return wheelchairOrNot as Boolean
+   */
+  public Boolean getWheelchairOrNot() {
+<span class="fc" id="L48">    return wheelchairOrNot;</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="fc" id="L53">    String row = &quot;&quot;;</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">    for(int i = 0; i&lt;this.size(); i++){</span>
+<span class="fc" id="L55">      row += this.get(i).toString();</span>
+    }
+<span class="fc" id="L57">    return row;</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L62" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L63">      return true;</span>
+    }
+<span class="fc bfc" id="L65" title="All 4 branches covered.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="fc" id="L66">      return false;</span>
+    }
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">    if (!super.equals(o)) {</span>
+<span class="nc" id="L69">      return false;</span>
+    }
+<span class="fc" id="L71">    Row seats = (Row) o;</span>
+<span class="fc bfc" id="L72" title="All 4 branches covered.">    return Objects.equals(rowNumber, seats.rowNumber) &amp;&amp; Objects.equals(</span>
+        wheelchairOrNot, seats.wheelchairOrNot);
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L78">    return Objects.hash(super.hashCode(), rowNumber, wheelchairOrNot);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

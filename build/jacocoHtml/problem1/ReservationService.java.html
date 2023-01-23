@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReservationService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment9</a> &gt; <a href="index.source.html" class="el_package">problem1</a> &gt; <span class="el_source">ReservationService.java</span></div><h1>ReservationService.java</h1><pre class="source lang-java linenums">package problem1;
+
+import java.util.List;
+
+/**
+ * Class of ReservationService, reserve seats by find best seats and show all the seats
+ */
+public class ReservationService {
+
+<span class="fc" id="L10">  private static final Integer OUT_OF_ROW = 0;</span>
+  private Theater theater;
+
+  /**
+   * Constructor of ReservationService
+   * @param theater - represented as Theater
+   */
+<span class="fc" id="L17">  public ReservationService(Theater theater) {</span>
+<span class="fc" id="L18">    this.theater = theater;</span>
+<span class="fc" id="L19">  }</span>
+
+
+  /**
+   * Method to reserve the best seats if there is a bestRow in certain condition
+   * @param person - person who want to reserve as Person
+   * @param numberOfSeats - number of Seats to reserve as Integer
+   * @param wheelchairOrNot - need wheel-chair option or not as Boolean
+   * @return bestRow as Integer
+   */
+  public Integer reserve(Person person, Integer numberOfSeats, Boolean wheelchairOrNot){
+<span class="fc" id="L30">    Integer bestRow = null;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">    if (wheelchairOrNot) {</span>
+<span class="fc" id="L32">      bestRow = this.findRowForWheelchair(numberOfSeats);</span>
+    } else {
+<span class="fc" id="L34">      bestRow = this.findOptimalRow(numberOfSeats);</span>
+    }
+<span class="fc bfc" id="L36" title="All 2 branches covered.">    if (bestRow == null) {</span>
+<span class="fc" id="L37">      System.out.println(&quot;Sorry, we don’t have that many seats together for you.&quot;);</span>
+    } else {
+<span class="fc" id="L39">      Integer seatsReserved = (this.theater.createSeats().size() -</span>
+<span class="fc" id="L40">          this.numberOfSeatsUnreserved(bestRow));</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">      for (int i = seatsReserved; i &lt; (numberOfSeats + seatsReserved); i++) {</span>
+<span class="fc" id="L42">        this.findRow(bestRow).get(i).setReservedFor(person);</span>
+      }
+    }
+<span class="fc" id="L45">    return bestRow;</span>
+  }
+
+  /**
+   * Method to find the bestSeats for non-wheel-chair option
+   * If all the normal seats are reserved and only wheel-chair seats are left
+   * then wheel-chair seats can be reserve
+   * @param numberOfSeats - number of seats to reserve as Integer
+   * @return best row as Integer
+   */
+  private Integer findOptimalRow(Integer numberOfSeats){
+<span class="fc" id="L56">    Integer middlePointUp = this.theater.getRows().size() / 2 + 1;</span>
+<span class="fc" id="L57">    Integer middlePointDown = this.theater.getRows().size() / 2 + 1;</span>
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">    while((middlePointUp&lt;this.theater.getRows().size() + 1) &amp;&amp; (middlePointDown&gt; OUT_OF_ROW)) {</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">      if ((this.numberOfSeatsUnreserved(middlePointUp) &gt;= numberOfSeats)</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">          &amp;&amp; (!this.theater.getWheelchairRows().contains(middlePointUp))) {</span>
+<span class="fc" id="L61">        return middlePointUp;</span>
+      }
+<span class="fc bfc" id="L63" title="All 2 branches covered.">      if ((this.numberOfSeatsUnreserved(middlePointDown) &gt;= numberOfSeats)</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">          &amp;&amp; (!this.theater.getWheelchairRows().contains(middlePointDown))) {</span>
+<span class="fc" id="L65">        return middlePointDown;</span>
+      }
+<span class="fc" id="L67">      middlePointUp++;</span>
+<span class="fc" id="L68">      middlePointDown--;</span>
+    }
+<span class="fc" id="L70">    return this.findRowForWheelchair(numberOfSeats);</span>
+  }
+
+  /**
+   * Method to find the row for wheel-chair
+   * @param numberOfSeats - number of seats to reserve as Integer
+   * @return row for wheel-char as Integer
+   * If there aren't seats left for wheel-chair, return null
+   */
+  public Integer findRowForWheelchair(Integer numberOfSeats){
+<span class="fc" id="L80">    List&lt;Integer&gt; wheelRowNumbers = this.theater.getWheelchairRows();</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">    for(int i=0;i&lt;wheelRowNumbers.size();i++){</span>
+<span class="fc" id="L82">      if(this.numberOfSeatsUnreserved(wheelRowNumbers.get(i)) &gt;=</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">      numberOfSeats){</span>
+<span class="fc" id="L84">        return wheelRowNumbers.get(i);</span>
+      }
+    }
+<span class="fc" id="L87">    return null;</span>
+  }
+
+  /**
+   * Method to check number of unreserved seats in certain row
+   * @param rowNumber - rowNumber to reserve as Integer
+   * @return size of unreserved seats as Integer
+   */
+  private Integer numberOfSeatsUnreserved(Integer rowNumber){
+<span class="fc" id="L96">    Integer size = 0;</span>
+<span class="fc" id="L97">    Row targetRow = this.findRow(rowNumber);</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">    for(Seat seat: targetRow){</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">      if(seat.getReservedFor() == null){</span>
+<span class="fc" id="L100">        size ++;</span>
+      }
+<span class="fc" id="L102">    }</span>
+<span class="fc" id="L103">    return size;</span>
+  }
+
+  /**
+   * Method to find the target row
+   * @param rowNumber - rowNumber to reserve as Integer
+   * @return targetRow as Row
+   */
+  private Row findRow(Integer rowNumber){
+<span class="fc" id="L112">    Row targetRow = null;</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">    for(Row row: this.theater.getRows()){</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">      if (row.getRowNumber() == rowNumber){</span>
+<span class="fc" id="L115">        targetRow = row;</span>
+      }
+<span class="fc" id="L117">    }</span>
+<span class="fc" id="L118">    return targetRow;</span>
+  }
+
+  /**
+   * Method to display the current available seating in the Theater
+   */
+  public void show(){
+<span class="fc" id="L125">    System.out.println(this.theater);</span>
+<span class="fc" id="L126">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

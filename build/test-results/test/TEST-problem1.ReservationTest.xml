@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="problem1.ReservationTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-08-09T05:05:55" hostname="MirandaMacBook.local" time="0.687">
+  <properties/>
+  <testcase name="testTheater()" classname="problem1.ReservationTest" time="0.276"/>
+  <testcase name="testRow()" classname="problem1.ReservationTest" time="0.008"/>
+  <testcase name="testSeat()" classname="problem1.ReservationTest" time="0.004"/>
+  <testcase name="testService()" classname="problem1.ReservationTest" time="0.256"/>
+  <testcase name="testPerson()" classname="problem1.ReservationTest" time="0.128"/>
+  <system-out><![CDATA[1   _  _  _  _  _  _  _  _ 
+2   _  _  _  _  _  _  _  _ 
+3   _  _  _  _  _  _  _  _ 
+4   _  _  _  _  _  _  _  _ 
+5   =  =  =  =  =  =  =  = 
+6   _  _  _  _  _  _  _  _ 
+7   _  _  _  _  _  _  _  _ 
+8   _  _  _  _  _  _  _  _ 
+9   =  =  =  =  =  =  =  = 
+10  _  _  _  _  _  _  _  _ 
+11  _  _  _  _  _  _  _  _ 
+12  _  _  _  _  _  _  _  _ 
+13  _  _  _  _  _  _  _  _ 
+
+Sorry, we don’t have that many seats together for you.
+Sorry, we don’t have that many seats together for you.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
